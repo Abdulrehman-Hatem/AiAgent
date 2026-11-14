@@ -8,9 +8,9 @@ def run_python_file(
     
     try:
         if os.path.commonpath([abs_path, target_file_path]) != abs_path:
-            return f'Error: Cannot write to "{file_path}" as it is outside the permitted working directory'
+            return f'Error: Cannot execute "{file_path}" as it is outside the permitted working directory'
     except ValueError:
-            return f'Error: Cannot write to "{file_path}" as it is outside the permitted working directory'
+            return f'Error: Cannot execute "{file_path}" as it is outside the permitted working directory'
 
     #check that the file exists and is a regular file
     if not os.path.isfile(os.path.join(working_directory, file_path)):
@@ -30,8 +30,8 @@ def run_python_file(
         returnstring = ""
         if result.returncode != 0:
             returnstring += f"Process exited with code {result.returncode}\n"
-        returnstring += f"stdout:\n{result.stdout}\n"
-        returnstring += f"stderr:\n{result.stderr}\n"
+        returnstring += f"STDOUT:\n{result.stdout}\n"
+        returnstring += f"STDERR:\n{result.stderr}\n"
         if not result.stderr and not result.stdout:
             returnstring += "No output produced"
         return returnstring
